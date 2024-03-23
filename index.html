@@ -12,23 +12,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
     <!-- Stylesheet-->
  <style>
-
-
-
     body {
 
             font-family: 'Roboto', sans-serif;
 
-            margin: 0 0 70px;
+            margin: 0 0px;
 
-            padding: 70px;
+            padding: 70px 15px 10px;
 
             background-color: #446FAA1A;
 
         }
-
-
-
     #navbar {
 
       position: fixed;
@@ -48,9 +42,6 @@
       z-index: 3;
 
     }
-
-
-
     #menuToggle {
 
       cursor: pointer;
@@ -64,9 +55,6 @@
       box-sizing: content-box;
 
     }
-
-
-
     #menuIcon {
 
       font-size: 24px;
@@ -74,17 +62,11 @@
       color: #1976D2;
 
     }
-
-
-
     #menuIcon.close {
 
       transform: rotate(180deg);
 
     }
-
-
-
     #menuOverlay {
 
       position: fixed;
@@ -266,9 +248,9 @@ body {
   max-width: 25em;
   background-color: #ffffff;
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%,0);
   left: 50%;
-  margin:260px 0 100px;
+  margin:0px 0 0px;
   padding: 2em;
   border-radius: 0.8em;
 }
@@ -343,6 +325,23 @@ button {
   background-color: #e5dbff;
   padding: 0.8em 0;
 }
+#intro-outline {
+    border: 2px solid #007bff; /* Adjust color as needed */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px; /* Creates space between this outline and the next content block */
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
 </style>
   </head>
   <body>
@@ -366,7 +365,10 @@ button {
 
   </div>
 
-
+<div id="intro-outline">
+    <h2>Quick Currency Converter</h2>
+    <p>Easily convert currencies in seconds. Ideal for travel and finance, offering real-time rates for global currencies. Fast, accurate, and user-friendly.</p>
+</div>
     <div class="wrapper">
       <div class="app-details">
        
@@ -761,4 +763,4 @@ window.addEventListener("load", convertCurrency);
 </script>
 
   </body>
-</html>
+  </html>
