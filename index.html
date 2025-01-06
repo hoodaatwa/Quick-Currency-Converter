@@ -1,766 +1,365 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Use our free and easy-to-use currency converter to calculate live currency and foreign exchange rates. Whether it's for business, travel, or just curiosity, get accurate and up-to-date rates instantly." />
-
-    <title>Quick Currency Converter</title>
-    <!-- Google Fonts -->
-    <link
-   href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-      rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
-    <!-- Stylesheet-->
- <style>
-    body {
-
-            font-family: 'Roboto', sans-serif;
-
-            margin: 0 0px;
-
-            padding: 70px 15px 10px;
-
-            background-color: #446FAA1A;
-
-        }
-    #navbar {
-
-      position: fixed;
-
-      top: 0px;
-
-      left: 0;
-
-      width: 100%;
-
-      background-color: white;
-
-      padding: 10px;
-
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-      z-index: 3;
-
-    }
-    #menuToggle {
-
-      cursor: pointer;
-
-      transition: transform 0.3s;
-
-      padding: 5px;
-
-      width: 20px;
-
-      box-sizing: content-box;
-
-    }
-    #menuIcon {
-
-      font-size: 24px;
-
-      color: #1976D2;
-
-    }
-    #menuIcon.close {
-
-      transform: rotate(180deg);
-
-    }
-    #menuOverlay {
-
-      position: fixed;
-
-      top: 0px;
-
-      left: 0;
-
-      width: 100%;
-
-      height: 100%;
-
-      background-color: rgba(0, 0, 0, 0.5);
-
-      display: none;
-
-      z-index: 2;
-
-      overflow-y: auto;
-
-    }
-
-
-
-    #repoList {
-
-      display: flex;
-
-      flex-wrap: wrap;
-
-      justify-content: space-around;
-
-      padding: 0;
-
-      max-width: 800px;
-
-      margin: 70px auto auto;
-
-    }
-
-
-
-    .repoCard {
-
-      background-color: white;
-
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-      margin: 10px;
-
-      padding: 20px;
-
-      width: 100%;
-
-      border-radius: 8px;
-
-      transition: box-shadow 0.3s;
-
-      cursor: pointer;
-
-    }
-
-
-
-    .repoCard:hover {
-
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-
-    }
-
-
-
-    .repoTitle {
-
-      font-size: 1.5rem;
-
-      color: #1976D2;
-
-      margin-bottom: 10px;
-
-    }
-
-
-
-    .repoDescription {
-
-      color: #555;
-
-      margin-bottom: 15px;
-
-    }
-
-
-
-    .repoLink {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: flex-start;
-
-      margin-top: 15px;
-
-    }
-
-
-
-    .repoLink a {
-
-      color: white;
-
-      text-decoration: none;
-
-      background-color: #1976D2;
-
-      padding: 10px 15px;
-
-      border-radius: 5px;
-
-      display: inline-block;
-
-      transition: background-color 0.3s;
-
-    }
-
-
-
-    .repoLink a:hover {
-
-      background-color: #1565C0;
-
-    }
-
-
-
-    .repoLink i {
-
-      margin-left: 5px;
-
-    }
-
-
-
-    .center {
-
-      color: white;
-
-      text-decoration: none;
-
-      background-color: #1976D2;
-
-      padding: 10px 15px;
-
-      border-radius: 5px;
-
-      display: inline-block;
-
-      transition: background-color 0.3s;
-
-      margin: 10px;
-
-    }
-
-  </style>
-<style>
-* {
-  
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  border: none;
-  outline: none;
-}
-body {
-  background-color: #f9f9f9;
-}
-.wrapper {
-  width: 90%;
-  max-width: 25em;
-  background-color: #ffffff;
-  position: absolute;
-  transform: translate(-50%,0);
-  left: 50%;
-  margin:0px 0 0px;
-  padding: 2em;
-  border-radius: 0.8em;
-}
-.app-details {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.app-title {
-  font-size: 1.6em;
-  text-transform: uppercase;
-  margin-bottom: 1em;
-}
-label {
-  display: block;
-  font-weight: 600;
-}
-input#amount {
-  font-weight: 400;
-  font-size: 1.2em;
-  display: block;
-  width: 100%;
-  border-bottom: 2px solid #02002c;
-  color: #7a789d;
-  margin-bottom: 2em;
-  padding: 0.5em;
-}
-input#amount:focus {
-  color: #9873fe;
-  border-color: #9873fe;
-}
-.dropdowns {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1em;
-}
-select {
-  width: 100%;
-  padding: 0.6em;
-  font-size: 1em;
-  border-radius: 0.2em;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("arrow-down.svg");
-  background-repeat: no-repeat;
-  background-position: right 15px top 50%, center;
-  background-size: 20px 20px;
-  background-color: #4950cc;
-  color: #ffffff;
-}
-select option {
-  background-color: #ffffff;
-  color: #02002c;
-}
-button {
-  font-size: 1em;
-  width: 100%;
-  background-color: #4950cc;
-  padding: 1em 0;
-  margin-top: 2em;
-  border-radius: 0.3em;
-  color: #ffffff;
-  font-weight: 600;
-}
-#result {
-  font-size: 1.2em;
-  text-align: center;
-  margin-top: 1em;
-  color: #02002c;
-  background-color: #e5dbff;
-  padding: 0.8em 0;
-}
-#intro-outline {
-    border: 2px solid #007bff; /* Adjust color as needed */
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px; /* Creates space between this outline and the next content block */
-}
-
-h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-p {
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-</style>
-  </head>
-  <body>
-
-
-  <div id="navbar">
-
-    <div id="menuToggle" onclick="toggleMenu()">
-
-      <i id="menuIcon" class="fas fa-bars"></i>
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Use our free and easy-to-use currency converter to calculate live currency and foreign exchange rates. Whether it's for business, travel, or just curiosity, get accurate and up-to-date rates instantly." />
+  <title>Currency Converter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+  <!-- Navigation Bar -->
+  <nav class="bg-sky-800 p-4 flex justify-between items-center">
+    <div class="text-white text-xl font-semibold flex items-center">
+      <i class="fa fa-money mr-2"></i>
+    </div>
+    <div class="space-x-4">
+      <button id="showConverter" class="text-white text-sm hover:underline">Converter</button>
+      <button id="showRepoList" class="text-white text-sm hover:underline">Tools</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="flex-1 p-4">
+    <!-- Currency Converter Section -->
+    <div id="converter" class="bg-white shadow-md rounded-lg p-6 m-4 w-full max-w-md mx-auto">
+      <h1 class="text-xl font-bold mb-4 text-center">Currency Converter</h1>
+      <form id="converter-form" class="space-y-4">
+        <div>
+          <label for="from-currency" class="block text-sm font-medium text-gray-700">From</label>
+          <select id="from-currency" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+            <option value="" disabled selected>Select currency</option>
+          </select>
+        </div>
+        <div>
+          <label for="to-currency" class="block text-sm font-medium text-gray-700">To</label>
+          <select id="to-currency" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+            <option value="" disabled selected>Select currency</option>
+          </select>
+        </div>
+        <div>
+          <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+          <input type="number" id="amount" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="Enter amount" />
+        </div>
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+          Convert
+        </button>
+      </form>
+      <div id="result" class="mt-4 text-center text-lg font-semibold text-gray-700"></div>
     </div>
 
-  </div>
-
-
-
-  <div id="menuOverlay" onclick="toggleMenu()">
-
-    <div id="repoList"></div>
-
-  </div>
-
-<div id="intro-outline">
-    <h2>Quick Currency Converter</h2>
-    <p>Easily convert currencies in seconds. Ideal for travel and finance, offering real-time rates for global currencies. Fast, accurate, and user-friendly.</p>
-</div>
-    <div class="wrapper">
-      <div class="app-details">
-       
-        <h1 class="app-title">Quick Currency Converter</h1>
-      </div>
-      <label for="amount">Amount:</label>
-      <input type="number" id="amount" value="1" />
-      <div class="dropdowns">
-        <select id="from-currency-select"></select>
-        <select id="to-currency-select"></select>
-      </div>
-      <button id="convert-button">Convert</button>
-      <p id="result"></p>
+    <!-- Repositories List Section -->
+    <div id="repoList" class="bg-white shadow-md rounded-lg p-6 hidden">
+      <!-- Repositories will be loaded here -->
     </div>
-<script>
-
-  const currentPageLocation = window.location.href;
-
-  let displayedRepos = 0; // Counter for displayed repositories
-
-
-
-  // Fetch data from GitHub API
-
-  fetch('https://api.github.com/users/hoodaatwa/repos')
-
-    .then(response => response.json())
-
-    .then(data => {
-
-      // Extract topics of the current repository
-
-      const currentRepoTopics = data
-
-        .filter(repo => repo.homepage === currentPageLocation)
-
-        .flatMap(repo => repo.topics || []);
-
-
-
-      // Create Material-UI card for each repository with the same topics
-
-      const repoList = document.getElementById('repoList');
-
-      data.forEach(repo => {
-
-        const repoTopics = repo.topics || [];
-
-
-
-        if (
-
-          displayedRepos >= 4 ||
-
-          repo.homepage === currentPageLocation ||
-
-          !repoTopics.some(topic => currentRepoTopics.includes(topic))
-
-        ) {
-
-          // Skip creating card if reached the limit, homepage matches current page location,
-
-          // or repository has no common topics
-
-          return;
-
-        }
-
-
-
-        const repoCard = document.createElement('div');
-
-        repoCard.classList.add('repoCard');
-
-        repoCard.innerHTML = `
-
-          <div class="repoTitle">${repo.name}</div>
-
-          <div class="repoDescription">${repo.description}</div>
-
-          <div class="repoLink">
-
-            <a href="${repo.homepage}" target="_blank">Homepage <i class="fas fa-external-link-alt"></i></a>
-
-          </div>
-
-        `;
-
-        repoList.appendChild(repoCard);
-
-
-
-        displayedRepos++;
-
-      });
-
-
-
-      // Find the "Main" repository and create a special card with a dynamic link
-
-      const mainRepo = data.find(repo => repo.name.toLowerCase() === 'main');
-
-      if (mainRepo) {
-
-        const mainRepoCard = document.createElement('div');
-
-
-
-        mainRepoCard.innerHTML = `
-
-          <a class="center" href="${mainRepo.homepage}" target="_blank">Go to Main Page <i class="fas fa-external-link-alt"></i></a>
-
-        `;
-
-        repoList.appendChild(mainRepoCard);
-
-      }
-
-    })
-
-    .catch(error => console.error('Error fetching data:', error));
-
-
-
-  function toggleMenu() {
-
-    const menuOverlay = document.getElementById('menuOverlay');
-
-    const body = document.body;
-
-    const menuIcon = document.getElementById('menuIcon');
-
-
-
-    if (menuOverlay.style.display === 'block') {
-
-      menuOverlay.style.display = 'none';
-
-      body.style.overflow = 'auto';
-
-      menuIcon.classList.replace('fa-times', 'fa-bars');
-
-    } else {
-
-      menuOverlay.style.display = 'block';
-
-      body.style.overflow = 'hidden';
-
-      menuIcon.classList.replace('fa-bars', 'fa-times');
-
-    }
-
-  }
-
-</script>
-    <!-- Scipt With Array Of Supported Country Codes -->
-    <script>
-currencies = [
-  "AED",
-  "AFN",
-  "ALL",
-  "AMD",
-  "ANG",
-  "AOA",
-  "ARS",
-  "AUD",
-  "AWG",
-  "AZN",
-  "BAM",
-  "BBD",
-  "BDT",
-  "BGN",
-  "BHD",
-  "BIF",
-  "BMD",
-  "BND",
-  "BOB",
-  "BRL",
-  "BSD",
-  "BTC",
-  "BTN",
-  "BWP",
-  "BYN",
-  "BZD",
-  "CAD",
-  "CDF",
-  "CHF",
-  "CLF",
-  "CLP",
-  "CNY",
-  "COP",
-  "CRC",
-  "CUC",
-  "CUP",
-  "CVE",
-  "CZK",
-  "DJF",
-  "DKK",
-  "DOP",
-  "DZD",
-  "EGP",
-  "ERN",
-  "ETB",
-  "EUR",
-  "FJD",
-  "FKP",
-  "GBP",
-  "GEL",
-  "GGP",
-  "GHS",
-  "GIP",
-  "GMD",
-  "GNF",
-  "GTQ",
-  "GYD",
-  "HKD",
-  "HNL",
-  "HRK",
-  "HTG",
-  "HUF",
-  "IDR",
-  "ILS",
-  "IMP",
-  "INR",
-  "IQD",
-  "IRR",
-  "ISK",
-  "JEP",
-  "JMD",
-  "JOD",
-  "JPY",
-  "KES",
-  "KGS",
-  "KHR",
-  "KMF",
-  "KPW",
-  "KRW",
-  "KWD",
-  "KYD",
-  "KZT",
-  "LAK",
-  "LBP",
-  "LKR",
-  "LRD",
-  "LSL",
-  "LYD",
-  "MAD",
-  "MDL",
-  "MGA",
-  "MKD",
-  "MMK",
-  "MNT",
-  "MOP",
-  "MRO",
-  "MRU",
-  "MUR",
-  "MVR",
-  "MWK",
-  "MXN",
-  "MYR",
-  "MZN",
-  "NAD",
-  "NGN",
-  "NIO",
-  "NOK",
-  "NPR",
-  "NZD",
-  "OMR",
-  "PAB",
-  "PEN",
-  "PGK",
-  "PHP",
-  "PKR",
-  "PLN",
-  "PYG",
-  "QAR",
-  "RON",
-  "RSD",
-  "RUB",
-  "RWF",
-  "SAR",
-  "SBD",
-  "SCR",
-  "SDG",
-  "SEK",
-  "SGD",
-  "SHP",
-  "SLL",
-  "SOS",
-  "SRD",
-  "SSP",
-  "STD",
-  "STN",
-  "SVC",
-  "SYP",
-  "SZL",
-  "THB",
-  "TJS",
-  "TMT",
-  "TND",
-  "TOP",
-  "TRY",
-  "TTD",
-  "TWD",
-  "TZS",
-  "UAH",
-  "UGX",
-  "USD",
-  "UYU",
-  "UZS",
-  "VEF",
-  "VES",
-  "VND",
-  "VUV",
-  "WST",
-  "XAF",
-  "XAG",
-  "XAU",
-  "XCD",
-  "XDR",
-  "XOF",
-  "XPD",
-  "XPF",
-  "XPT",
-  "YER",
-  "ZAR",
-  "ZMW",
-  "ZWL",
-];
-
-</script>
-    <!-- Script with API Key -->
-    <script>
-const fromDropDown = document.getElementById("from-currency-select");
-const toDropDown = document.getElementById("to-currency-select");
-
-//Create dropdown from the currencies array
-currencies.forEach((currency) => {
-  const option = document.createElement("option");
-  option.value = currency;
-  option.text = currency;
-  fromDropDown.add(option);
-});
-
-//Repeat same thing for the other dropdown
-currencies.forEach((currency) => {
-  const option = document.createElement("option");
-  option.value = currency;
-  option.text = currency;
-  toDropDown.add(option);
-});
-
-//Setting default values
-fromDropDown.value = "USD";
-toDropDown.value = "EGP";
-
-
-// تحديث الدالة convertCurrency لاستخدام API الجديدة
-let convertCurrency = async () => {
-  const amount = document.querySelector("#amount").value;
-  const fromCurrency = fromDropDown.value;
-  const toCurrency = toDropDown.value;
-
-  // تحديث الرابط ليعكس العملات المختارة والكمية
-  const url = `https://currency-exchange.p.rapidapi.com/exchange?from=${fromCurrency}&to=${toCurrency}&q=${amount}`;
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': 'f6d359abd9msh0d72112f80f8236p1cdd07jsncc0c270b44c5',
-      'X-RapidAPI-Host': 'currency-exchange.p.rapidapi.com'
-    }
-  };
-
-  // إذا كانت خانة الكمية ليست فارغة
-  if (amount.length != 0) {
-    try {
-      const response = await fetch(url, options);
-      const resultData = await response.text(); // الحصول على النتيجة كنص
-      const convertedAmount = parseFloat(resultData) * amount; // تحويل النتيجة إلى عدد وضربها بالكمية للحصول على القيمة النهائية
-      // عرض النتيجة
-      document.getElementById("result").innerHTML = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    alert("Please fill in the amount");
-  }
+  </div>
+
+  <script>
+    const form = document.getElementById("converter-form");
+    const fromCurrencySelect = document.getElementById("from-currency");
+    const toCurrencySelect = document.getElementById("to-currency");
+    const resultDiv = document.getElementById("result");
+
+    const currenciesMap = {
+  "usd": "US Dollar",
+  "aed": "Emirati Dirham",
+  "afn": "Afghan Afghani",
+  "all": "Albanian Lek",
+  "amd": "Armenian Dram",
+  "ang": "Netherlands Antillean Gulden",
+  "aoa": "Angolan Kwanza",
+  "ars": "Argentine Peso",
+  "aud": "Australian Dollar",
+  "awg": "Aruban Florin",
+  "azn": "Azerbaijani Manat",
+  "bam": "Bosnia and Herzegovina Convertible Marka",
+  "bbd": "Barbadian Dollar",
+  "bdt": "Bangladeshi Taka",
+  "bgn": "Bulgarian Lev",
+  "bhd": "Bahraini Dinar",
+  "bif": "Burundian Franc",
+  "bmd": "Bermudian Dollar",
+  "bnd": "Brunei Dollar",
+  "bob": "Bolivian Boliviano",
+  "brl": "Brazilian Real",
+  "bsd": "Bahamian Dollar",
+  "btn": "Bhutanese Ngultrum",
+  "bwp": "Botswana Pula",
+  "byn": "Belarusian Ruble",
+  "bzd": "Belize Dollar",
+  "cad": "Canadian Dollar",
+  "cdf": "Congolese Franc",
+  "chf": "Swiss Franc",
+  "clp": "Chilean Peso",
+  "cny": "Chinese Yuan",
+  "cop": "Colombian Peso",
+  "crc": "Costa Rican Colón",
+  "cup": "Cuban Peso",
+  "cve": "Cape Verdean Escudo",
+  "czk": "Czech Koruna",
+  "djf": "Djiboutian Franc",
+  "dkk": "Danish Krone",
+  "dop": "Dominican Peso",
+  "dzd": "Algerian Dinar",
+  "egp": "Egyptian Pound",
+  "ern": "Eritrean Nakfa",
+  "etb": "Ethiopian Birr",
+  "eur": "Euro",
+  "fjd": "Fijian Dollar",
+  "fkp": "Falkland Islands Pound",
+  "fok": "Faroese Króna",
+  "gbp": "British Pound",
+  "gel": "Georgian Lari",
+  "ggp": "Guernsey Pound",
+  "ghs": "Ghanaian Cedi",
+  "gip": "Gibraltar Pound",
+  "gmd": "Gambian Dalasi",
+  "gnf": "Guinean Franc",
+  "gtq": "Guatemalan Quetzal",
+  "gyd": "Guyanese Dollar",
+  "hkd": "Hong Kong Dollar",
+  "hnl": "Honduran Lempira",
+  "hrk": "Croatian Kuna",
+  "htg": "Haitian Gourde",
+  "huf": "Hungarian Forint",
+  "idr": "Indonesian Rupiah",
+  "ils": "Israeli New Shekel",
+  "imp": "Isle of Man Pound",
+  "inr": "Indian Rupee",
+  "iqd": "Iraqi Dinar",
+  "irr": "Iranian Rial",
+  "isk": "Icelandic Króna",
+  "jep": "Jersey Pound",
+  "jmd": "Jamaican Dollar",
+  "jod": "Jordanian Dinar",
+  "jpy": "Japanese Yen",
+  "kes": "Kenyan Shilling",
+  "kgs": "Kyrgyzstani Som",
+  "khr": "Cambodian Riel",
+  "kid": "Kiribati Dollar",
+  "kmf": "Comorian Franc",
+  "krw": "South Korean Won",
+  "kwd": "Kuwaiti Dinar",
+  "kyd": "Cayman Islands Dollar",
+  "kzt": "Kazakhstani Tenge",
+  "lak": "Laotian Kip",
+  "lbp": "Lebanese Pound",
+  "lkr": "Sri Lankan Rupee",
+  "lrd": "Liberian Dollar",
+  "lsl": "Lesotho Loti",
+  "lyd": "Libyan Dinar",
+  "mad": "Moroccan Dirham",
+  "mdl": "Moldovan Leu",
+  "mga": "Malagasy Ariary",
+  "mkd": "Macedonian Denar",
+  "mmk": "Myanmar Kyat",
+  "mnt": "Mongolian Tugrik",
+  "mop": "Macanese Pataca",
+  "mru": "Mauritanian Ouguiya",
+  "mur": "Mauritian Rupee",
+  "mvr": "Maldivian Rufiyaa",
+  "mwk": "Malawian Kwacha",
+  "mxn": "Mexican Peso",
+  "myr": "Malaysian Ringgit",
+  "mzn": "Mozambican Metical",
+  "nad": "Namibian Dollar",
+  "ngn": "Nigerian Naira",
+  "nio": "Nicaraguan Córdoba",
+  "nok": "Norwegian Krone",
+  "npr": "Nepalese Rupee",
+  "nzd": "New Zealand Dollar",
+  "omr": "Omani Rial",
+  "pab": "Panamanian Balboa",
+  "pen": "Peruvian Nuevo Sol",
+  "pgk": "Papua New Guinean Kina",
+  "php": "Philippine Peso",
+  "pkr": "Pakistani Rupee",
+  "pln": "Polish Zloty",
+  "pyg": "Paraguayan Guarani",
+  "qar": "Qatari Riyal",
+  "ron": "Romanian Leu",
+  "rsd": "Serbian Dinar",
+  "rub": "Russian Ruble",
+  "rwf": "Rwandan Franc",
+  "sar": "Saudi Riyal",
+  "sbd": "Solomon Islands Dollar",
+  "scr": "Seychellois Rupee",
+  "sdg": "Sudanese Pound",
+  "sek": "Swedish Krona",
+  "sgd": "Singapore Dollar",
+  "shp": "Saint Helena Pound",
+  "sle": "Sierra Leonean Leone",
+  "sll": "Sierra Leonean Leone",
+  "sos": "Somali Shilling",
+  "srd": "Surinamese Dollar",
+  "ssp": "South Sudanese Pound",
+  "stn": "São Tomé and Príncipe Dobra",
+  "syp": "Syrian Pound",
+  "szl": "Swazi Lilangeni",
+  "thb": "Thai Baht",
+  "tjs": "Tajikistani Somoni",
+  "tmt": "Turkmenistani Manat",
+  "tnd": "Tunisian Dinar",
+  "top": "Tongan Paʻanga",
+  "try": "Turkish Lira",
+  "ttd": "Trinidad and Tobago Dollar",
+  "tvd": "Tuvaluan Dollar",
+  "twd": "New Taiwan Dollar",
+  "tzs": "Tanzanian Shilling",
+  "uah": "Ukrainian Hryvnia",
+  "ugx": "Ugandan Shilling",
+  "uyu": "Uruguayan Peso",
+  "uzs": "Uzbekistani Som",
+  "ves": "Venezuelan Bolívar",
+  "vnd": "Vietnamese Đồng",
+  "vuv": "Vanuatu Vatu",
+  "wst": "Samoan Tala",
+  "xaf": "CFA Franc BEAC",
+  "xcd": "East Caribbean Dollar",
+  "xdr": "Special Drawing Rights",
+  "xof": "CFA Franc BCEAO",
+  "xpf": "CFP Franc",
+  "yer": "Yemeni Rial",
+  "zar": "South African Rand",
+  "zmw": "Zambian Kwacha",
+  "zwl": "Zimbabwean Dollar"
 };
 
-document.querySelector("#convert-button").addEventListener("click", convertCurrency);
-window.addEventListener("click", convertCurrency);
-</script>
+    async function fetchCurrencies() {
+      try {
+        const response = await fetch("https://open.er-api.com/v6/latest/USD");
+        const data = await response.json();
 
-  </body>
-  </html>
+        if (data.result === "success") {
+          const currencies = Object.keys(data.rates);
+
+          currencies.forEach((currency) => {
+            const option = document.createElement("option");
+            option.value = currency;
+            option.textContent = `${currency.toUpperCase()} - ${currenciesMap[currency.toLowerCase()] || "Unknown"}`;
+            fromCurrencySelect.appendChild(option.cloneNode(true));
+            toCurrencySelect.appendChild(option.cloneNode(true));
+          });
+
+          const savedFromCurrency = localStorage.getItem("fromCurrency");
+          const savedToCurrency = localStorage.getItem("toCurrency");
+
+          if (savedFromCurrency) {
+            fromCurrencySelect.value = savedFromCurrency;
+          }
+          if (savedToCurrency) {
+            toCurrencySelect.value = savedToCurrency;
+          }
+        } else {
+          alert("Failed to fetch currencies. Please try again later.");
+        }
+      } catch (error) {
+        console.error("Error fetching currencies:", error);
+        alert("Error fetching currencies. Please check your internet connection.");
+      }
+    }
+
+    async function fetchExchangeRate(base) {
+      const response = await fetch(`https://open.er-api.com/v6/latest/${base}`);
+      const data = await response.json();
+      return data.rates;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const fromCurrency = fromCurrencySelect.value;
+      const toCurrency = toCurrencySelect.value;
+      const amount = parseFloat(document.getElementById("amount").value);
+
+      if (fromCurrency && toCurrency && amount > 0) {
+        try {
+          const rates = await fetchExchangeRate(fromCurrency.toUpperCase());
+          const rate = rates[toCurrency.toUpperCase()];
+          if (rate) {
+            const convertedAmount = (amount * rate).toFixed(2);
+            resultDiv.textContent = `${amount} ${fromCurrency.toUpperCase()} = ${convertedAmount} ${toCurrency.toUpperCase()}`;
+          } else {
+            resultDiv.textContent = "Conversion rate not available.";
+          }
+        } catch (error) {
+          console.error("Error converting currency:", error);
+          resultDiv.textContent = "Error converting currency. Please try again.";
+        }
+      } else {
+        resultDiv.textContent = "Please fill in all fields correctly.";
+      }
+
+      localStorage.setItem("fromCurrency", fromCurrency);
+      localStorage.setItem("toCurrency", toCurrency);
+    });
+
+    fetchCurrencies();
+
+    // Fetch Repositories from GitHub API
+    const currentPageLocation = window.location.href;
+    let displayedRepos = 0;
+
+    fetch('https://api.github.com/users/hoodaatwa/repos')
+      .then(response => response.json())
+      .then(data => {
+        const currentRepoTopics = data
+          .filter(repo => repo.homepage === currentPageLocation)
+          .flatMap(repo => repo.topics || []);
+
+        const repoList = document.getElementById('repoList');
+        data.forEach(repo => {
+          const repoTopics = repo.topics || [];
+          if (
+            displayedRepos >= 4 ||
+            repo.homepage === currentPageLocation ||
+            !repoTopics.some(topic => currentRepoTopics.includes(topic))
+          ) {
+            return;
+          }
+
+          const repoCard = document.createElement('div');
+         repoCard.classList.add('repoCard', 'bg-gray-200', 'p-4', 'rounded-lg', 'mb-4');
+          repoCard.innerHTML = `
+            <div class="repoTitle text-lg font-semibold">${repo.name}</div>
+            <div class="repoDescription text-sm text-gray-600">${repo.description}</div>
+            <div class="repoLink mt-2">
+              <a href="${repo.homepage}" target="_blank" class="text-blue-600 hover:underline">Homepage <i class="fas fa-external-link-alt"></i></a>
+            </div>
+          `;
+          repoList.appendChild(repoCard);
+          displayedRepos++;
+        });
+
+        const mainRepo = data.find(repo => repo.name.toLowerCase() === 'main');
+        if (mainRepo) {
+          const mainRepoCard = document.createElement('div');
+          mainRepoCard.classList.add('text-center', 'my-4');
+          mainRepoCard.innerHTML = `
+            <a class="text-blue-600 hover:underline" href="${mainRepo.homepage}" target="_blank">Go to Main Page <i class="fas fa-external-link-alt"></i></a>
+          `;
+          repoList.appendChild(mainRepoCard);
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+
+    // Toggle between tabs
+    const showConverterButton = document.getElementById("showConverter");
+    const showRepoListButton = document.getElementById("showRepoList");
+
+    showConverterButton.addEventListener("click", () => {
+      document.getElementById("converter").classList.remove("hidden");
+      document.getElementById("repoList").classList.add("hidden");
+    });
+
+    showRepoListButton.addEventListener("click", () => {
+      document.getElementById("repoList").classList.remove("hidden");
+      document.getElementById("converter").classList.add("hidden");
+    });
+
+    // Show Converter by default
+    document.getElementById("converter").classList.remove("hidden");
+    document.getElementById("repoList").classList.add("hidden");
+
+  </script>
+</body>
+</html>
