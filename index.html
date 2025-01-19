@@ -348,17 +348,27 @@
 
     showConverterButton.addEventListener("click", () => {
       document.getElementById("converter").classList.remove("hidden");
+showRepoListButton.classList.remove("hidden");
+showConverterButton.classList.add("hidden");
       document.getElementById("repoList").classList.add("hidden");
     });
 
     showRepoListButton.addEventListener("click", () => {
       document.getElementById("repoList").classList.remove("hidden");
-      document.getElementById("converter").classList.add("hidden");
+      
+showRepoListButton.classList.add("hidden");
+showConverterButton.classList.remove("hidden");
+document.getElementById("converter").classList.add("hidden");
     });
 
     // Show Converter by default
     document.getElementById("converter").classList.remove("hidden");
-    document.getElementById("repoList").classList.add("hidden");
+    
+showRepoListButton.classList.remove("hidden");
+
+showConverterButton.classList.add("hidden");
+      
+document.getElementById("repoList").classList.add("hidden");
 
   </script>
 </body>
